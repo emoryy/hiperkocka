@@ -1,0 +1,14 @@
+import Ember from 'ember';
+import ENV from 'hiperkocka/config/environment';
+
+var AjaxInitializer = {
+
+  name: 'ajax-setup',
+
+  initialize: function(instance) {
+    // instance.container.lookup("...");
+  }
+
+};
+
+export default AjaxInitializer;

@@ -1,0 +1,17 @@
+{{#if isEditing tagName="span" use="toDown"}}
+  <button {{action "cancel"}} class="btn btn-function">
+    {{cancelText}}
+  </button>
+  {{loading-button
+    action="save"
+    classNames="btn btn-highlighted"
+    isLoading=isSaving
+    disabled=saveDisabled
+    buttonText=isEditingText
+    loadingText=loadingText
+  }}
+{{else}}
+  <button {{action "edit"}} class="btn btn-major" disabled={{if editingDisabled true null}}>
+    {{notEditingText}}
+  </button>
+{{/if}}

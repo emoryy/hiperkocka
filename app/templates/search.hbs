@@ -1,0 +1,28 @@
+{{textarea
+  value=searchTerm
+  placeholder="Search for multiple set numbers, like: 6900, 6915, 6982"
+  rows="6"
+}}
+
+<div class="search-result">
+  {{#each model as |set|}}
+    <div class="set">
+      <div class="description">
+        <div class="first-line">
+          {{set.set_id}} - {{set.descr}}
+        </div>
+        <div class="second-line">
+          {{set.theme1}}{{#if set.theme2}} / {{set.theme2}}{{/if}}{{#if set.theme3}} / {{set.theme3}}{{/if}}
+          [{{set.year}}]
+        </div>
+      </div>
+      <a href="{{set.url}}" target="_blank">
+        <img src="{{set.img_big}}">
+      </a>
+
+      {{#link-to 'inventory' set.set_id}}
+        Inventory
+      {{/link-to}}
+    </div>
+  {{/each}}
+</div>

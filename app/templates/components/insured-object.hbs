@@ -1,0 +1,71 @@
+<div class='grid-x-rgt'>
+  <button {{action "delete"}}class="btn btn-bare btn-icon-only" title="Törlés">
+    {{fa-icon "trash-o"}}
+  </button>
+</div>
+
+{{input-field-row
+  label="Gép megnevezése"
+  value=insuredObject.name
+  tooltipText="A"
+}}
+
+{{#input-field-row
+  label="Gép típusa"
+  tooltipText="A"
+}}
+  {{#auto-complete
+    options=codeTables.CODE_TABLES.OBJECT_TYPES
+    inputClass="w-300"
+    selectedValue=insuredObject.type
+    placeHolderText=" "
+    noMesssagePlaceHolderText=" "
+    as |result|
+  }}
+    <p>{{result.label}}</p>
+  {{/auto-complete}}
+{{/input-field-row}}
+
+{{input-field-row
+  label="Típusa"
+  value=insuredObject.type
+  tooltipText="B"
+}}
+
+{{input-field-row
+  label="Gyártója"
+  value=insuredObject.maker
+  tooltipText="C"
+}}
+
+{{input-field-row
+  label="Gyártási éve"
+  value=insuredObject.yearOfProduction
+  tooltipText="D"
+}}
+
+{{input-field-row
+  label="Gyári száma"
+  value=insuredObject.serialNumber
+  tooltipText="E"
+}}
+
+{{input-field-row
+  label="Jelenlegi értéke"
+  value=insuredObject.actualValue
+  tooltipText="F"
+}}
+
+{{!--
+import DS from 'ember-data';
+
+var InsuredObject = DS.Model.extend({
+  name:             DS.attr('string'),
+  type:             DS.attr(),
+  yearOfProduction: DS.attr('date'),
+  serialNumber:     DS.attr(),
+  actualValue:      DS.attr(),
+  maker:            DS.attr(),
+});
+
+export default InsuredObject; --}}
