@@ -14,10 +14,14 @@ var SearchController = Ember.ArrayController.extend({
   search: function() {
     var _this = this;
     var searchTerm = this.get('searchTerm');
+    this.set('model', Ember.A());
+
+    if(Ember.isEmpty(searchTerm)) {
+      return;
+    }
     var terms = searchTerm.split(',');
     console.log('searching');
 
-    this.set('model', Ember.A());
     terms.forEach(function(term) {
       request(
         ENV.APP.REBR_API_BASE + 'search', {
