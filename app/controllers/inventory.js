@@ -2,17 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  isDirty: function() {
-    var model = this.get('model');
-    return model.hasDirtyAttributes || model.get('parts').findBy('hasDirtyAttributes').get('length') > 0;
-  }.property('model.hasDirtyAttributes', 'model.parts.@each.hasDirtyAttributes'),
 
   viewMode: 'normal',
+  isViewModeNormal: Em.computed.equal('viewMode', 'normal'),
 
   parts: function() {
     if(this.get('missingOnly')) {
       return this.get('model.parts').filter(function(part) {
-        return part.get('quantityHave') < part.get('partData.qty');
+        return part.get('quantityHave') < part.get('quantity');
       });
     } else {
       return this.get('model.parts');
@@ -33,8 +30,8 @@ export default Ember.Controller.extend({
     },
 
     changePartQuantityDelta: function(part, delta) {
-      var quantityHave = part.get('quantityHave');
-      var quantity = part.get('partData.qty');
+      var quantityHave = Number.parseInt(part.get('quantityHave'));
+      var quantity = Number.parseInt(part.get('quantity'));
       var newQuantity = quantityHave + delta;
       if( newQuantity >= 0 && newQuantity <= quantity) {
         part.set('quantityHave', newQuantity);
@@ -47,6 +44,12 @@ export default Ember.Controller.extend({
 
     toggleMissing: function() {
       this.toggleProperty('missingOnly');
+    },
+
+    activateInput: function(part) {
+      var input = Ember.$('.'+part.get('id'));
+      input.select();
+      input.focus();
     }
 
   }

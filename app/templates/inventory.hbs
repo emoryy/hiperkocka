@@ -1,4 +1,4 @@
-<div class="set-info">
+<div class="header">
   <div class="image">
 
   </div>
@@ -26,40 +26,29 @@
 
   </div>
 </div>
-{{#if (is-equal viewMode 'normal')}}
+
+<div class="parts {{viewMode}}">
   {{#each parts as |part|}}
-    <div class="part {{if part.hasNoImage 'has-no-image'}}">
-      <div class="description" title="{{part.partId}} - {{part.partData.part_name}}">
-        {{part.partId}} - {{part.partData.part_name}}
+    <div class="part {{if part.hasNoImage 'has-no-image'}} {{part.quantityStatus}}">
+      <div class="description" title="{{part.part.part_id}} - {{part.part.part_name}}">
+        {{part.part.part_id}} - {{part.part.part_name}}
       </div>
-      <img src="{{part.partData.part_img_url}}">
-      <div class="quantity">
+      <img src="{{part.part.part_img_url}}">
+      <div class="quantity" {{action "activateInput" part}}>
         {{input
           type="text"
-          class="quantity-input"
+          classNames="quantity-input"
+          classNameBindings="part.id"
           value=part.quantityHave
         }}
         /
-        {{part.partData.qty}}
-        <button class="btn btn-nice max" {{action "changePartQuantity" part part.partData.qty}}>
-          Set max
-        </button>
-        <button class="btn btn-nice minus" {{action "changePartQuantityDelta" part -1}}>
-          -
-        </button>
-        <button class="btn btn-nice plus" {{action "changePartQuantityDelta" part 1}}>
-          +
-        </button>
+        {{part.quantity}}
+      </div>
+      <div class="buttons">
+        <button class="max" {{action "changePartQuantity" part part.quantity}}> {{fa-icon 'chevron-up'}} </button>
+        <button class="minus" {{action "changePartQuantityDelta" part -1}}> {{fa-icon 'minus'}} </button>
+        <button class="plus" {{action "changePartQuantityDelta" part 1}}> {{fa-icon 'plus'}} </button>
       </div>
     </div>
   {{/each}}
-{{else}}
-  {{#each parts as |part|}}
-    <div class="part-missing" title="{{part.partId}} - {{part.partData.part_name}}">
-      <img src="{{part.partData.part_img_url}}">
-      <span>{{part.needed}}/{{part.partData.qty}}</span>
-      <button class="btn btn-nice minus" {{action "changePartQuantityDelta" part -1}}>-</button>
-      <button class="btn btn-nice plus" {{action "changePartQuantityDelta" part 1}}>+</button>
-    </div>
-  {{/each}}
-{{/if}}
+</div>
