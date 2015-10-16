@@ -50,9 +50,14 @@ export default Ember.Route.extend({
                 var quantity = Number.parseInt(partData.qty);
                 var part;
                 if(!indexExists || savedPartsIndex.indexOf(partKey) === -1) {
+                  console.log('new part');
                   part = saveNewPart(partData);
                 } else {
+                  console.log('existing part');
                   part = parts.findBy('id', partKey);
+                  if(!part)  {
+                    part = saveNewPart(partData);
+                  }
                   // part = _this.store.find('part', partKey );
                 }
                 return _this.store.createRecord('part-of-set', {

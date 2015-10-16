@@ -1,0 +1,23 @@
+<div class="collection">
+  {{#each model as |invSet|}}
+    <div class="set">
+      <div class="description">
+        <div class="first-line">
+          {{invSet.setId}}
+          <!-- {{set.set_id}} - {{set.descr}} -->
+        </div>
+        <!-- <div class="second-line">
+          {{set.theme1}}{{#if set.theme2}} / {{set.theme2}}{{/if}}{{#if set.theme3}} / {{set.theme3}}{{/if}}
+          [{{set.year}}]
+        </div> -->
+      </div>
+      <!-- <a href="{{set.url}}" target="_blank">
+        <img src="{{set.img_big}}">
+      </a> -->
+
+      {{#link-to 'inventory' invSet.setId}}
+        Inventory
+      {{/link-to}}
+    </div>
+  {{/each}}
+</div>

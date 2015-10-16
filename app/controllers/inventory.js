@@ -46,6 +46,10 @@ export default Ember.Controller.extend({
       this.toggleProperty('missingOnly');
     },
 
+    toggleQuantity: function() {
+      this.toggleProperty('missingQuantity');
+    },
+
     activateInput: function(part) {
       var input = Ember.$('.'+part.get('id'));
       input.select();

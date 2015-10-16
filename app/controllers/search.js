@@ -11,6 +11,8 @@ var SearchController = Ember.ArrayController.extend({
     Ember.run.debounce(this, this.search, 1000);
   }.observes('searchTerm'),
 
+  info: 'searching...',
+
   search: function() {
     var _this = this;
     var searchTerm = this.get('searchTerm');
@@ -20,10 +22,10 @@ var SearchController = Ember.ArrayController.extend({
       return;
     }
     var terms = searchTerm.split(',');
-    console.log('searching');
-
+    this.set('isLoading', true);
+    var promises = [];
     terms.forEach(function(term) {
-      request(
+      var search = request(
         ENV.APP.REBR_API_BASE + 'search', {
           data: {
             key: ENV.APP.REBR_API_KEY,
@@ -32,11 +34,17 @@ var SearchController = Ember.ArrayController.extend({
             query: term
           }
         }
-      ).then(function(result){
+      );
+      promises.pushObject(search);
+      search.then(function(result){
         _this.get('model').pushObjects(result.results.map(function(resultItem) {
           return SimpleSet.create(resultItem);
         }));
       });
+    });
+
+    Ember.RSVP.all(promises).then(function() {
+      _this.set('isLoading', false);
     });
   },
 

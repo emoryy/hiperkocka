@@ -3,7 +3,7 @@
 
   </div>
   <div class="description">
-    {{model.setId}}
+    {{model.setId}}: Missing: {{model.missingTypes}} types, {{model.missingQuantity}} pieces
   </div>
   <div class="buttons">
     <button {{action "save"}} class="btn btn-major inline-block">
@@ -22,7 +22,13 @@
         Show only missing
       {{/if}}
     </button>
-
+    <button {{action "toggleQuantity"}} class="btn btn-highlighted inline-block">
+      {{#if missingQuantity}}
+        Display H number
+      {{else}}
+        Display M number
+      {{/if}}
+    </button>
 
   </div>
 </div>
@@ -30,20 +36,26 @@
 <div class="parts {{viewMode}}">
   {{#each parts as |part|}}
     <div class="part {{if part.hasNoImage 'has-no-image'}} {{part.quantityStatus}}">
-      <div class="description" title="{{part.part.part_id}} - {{part.part.part_name}}">
-        {{part.part.part_id}} - {{part.part.part_name}}
+      <div class="description" title="{{part.part.part_id}} - {{part.part.color_name}} {{part.part.part_name}}">
+        t{{part.part.type}} {{part.part.part_id}} - {{part.part.color_name}} {{part.part.part_name}}
       </div>
       <img src="{{part.part.part_img_url}}">
-      <div class="quantity" {{action "activateInput" part}}>
-        {{input
-          type="text"
-          classNames="quantity-input"
-          classNameBindings="part.id"
-          value=part.quantityHave
-        }}
-        /
-        {{part.quantity}}
-      </div>
+      {{#if missingQuantity}}
+        <div class="needed">
+          {{part.needed}}
+        </div>
+      {{else}}
+        <div class="quantity" {{action "activateInput" part}}>
+          {{input
+            type="text"
+            classNames="quantity-input"
+            classNameBindings="part.id"
+            value=part.quantityHave
+          }}
+          /
+          {{part.quantity}}
+        </div>
+      {{/if}}
       <div class="buttons">
         <button class="max" {{action "changePartQuantity" part part.quantity}}> {{fa-icon 'chevron-up'}} </button>
         <button class="minus" {{action "changePartQuantityDelta" part -1}}> {{fa-icon 'minus'}} </button>

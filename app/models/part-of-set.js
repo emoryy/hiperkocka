@@ -12,7 +12,7 @@ export default DS.Model.extend({
   inventorySet: DS.belongsTo('inventory-set', { async: true }),
 
   needed: function() {
-    return this.get('part.quantity') - this.get('quantityHave');
+    return this.get('quantity') - this.get('quantityHave');
   }.property('quantity', 'quantityHave'),
 
   quantityStatus: function() {

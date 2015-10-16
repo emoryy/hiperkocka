@@ -103,6 +103,13 @@ textarea {
 			position: absolute;
 			width: 43px;
 		}
+		.needed {
+	    font-size: 20px;
+	    font-weight: bold;
+	    position: absolute;
+	    right: 2px;
+	    bottom: 2px;
+		}
 		&:hover {
 			.buttons {
 				opacity: 1.0;
@@ -178,47 +185,55 @@ textarea {
 	text-align: right;
 }
 .compact {
-	.part {
-		background: white;
-		float: left;
-		height: 100px;
-		vertical-align: top;
-		img {
-			max-height: 100px;
-			width: 100px;
-		}
-		span {
-			background: white;
-			border-radius: 3px;
-			font-size: 14px;
-			padding: 1px;
-		}
-		button {
-			opacity: 0;
-			position: absolute;
-			&:hover {
-				opacity: 255;
-			}
-		}
-		button.minus {
-			left: 7px;
-			top: 53px;
-			width: 46px;
-		}
-		button.plus {
-			right: 7px;
-			top: 53px;
-			width: 46px;
-		}
-		button.max {
-			left: 7px;
-			top: 16px;
-			width: 96px;
-		}
-	}
+  .part {
+    background: white;
+    float: left;
+    height: 100px;
+    width: 100px;
+    vertical-align: top;
+    position: relative;
+    padding: 5px;
+    img {
+      max-height: 100px;
+      max-width: 100px;
+    }
+    span {
+      background: white;
+      border-radius: 3px;
+      font-size: 14px;
+      padding: 1px;
+    }
+    .description {
+      display: none;
+    }
+    button {
+      display: none;
+    }
+    .needed {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
 }
+
 .header {
 	.buttons {
 		padding: 15px;
 	}
 }
+
+.loader .fa-cog{
+  font-size: 40px;
+  margin: 10px;
+  vertical-align: middle;
+}
+
+.loader {
+  margin: 20px auto;
+  font-size: 20px;
+  font-weight: bold;
+}
+

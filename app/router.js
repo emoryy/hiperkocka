@@ -7,9 +7,11 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
 
-  this.resource('search', { path: "kereses" }, function() {
+  this.resource('search', { path: "search" }, function() {
   });
-  this.resource('inventory', { path: "elemlista/:id" }, function() {
+  this.resource('inventory', { path: "inventory/:id" }, function() {
+  });
+  this.resource('collection', { path: "collection" }, function() {
   });
 
 });
