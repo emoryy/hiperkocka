@@ -13,6 +13,8 @@ Router.map(function() {
   });
   this.resource('collection', { path: "collection" }, function() {
   });
+  this.resource('all-missing', { path: "all-missing" }, function() {
+  });
 
 });
 

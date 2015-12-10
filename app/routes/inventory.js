@@ -26,6 +26,8 @@ export default Ember.Route.extend({
             }
           ).then(function(result) {
             var data = result[0];
+            // console.log(data.parts.filterBy('type', 2));
+            // data.parts = data.parts.rejectBy('type', 2);
             var saveNewPart = function(partData) {
               var part = _this.store.createRecord('part', {
                 id: partData.part_id+"C"+partData.ldraw_color_id,

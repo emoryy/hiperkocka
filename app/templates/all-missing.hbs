@@ -1,0 +1,11 @@
+<div class="all-missing">
+  <button {{action "setViewMode" "normal"}} class="btn inline-block {{if (is-equal viewMode 'normal') 'btn-minor' 'btn-nice'}}">
+    Normal view
+  </button>
+  <button {{action "setViewMode" "compact"}} class="btn inline-block {{if (is-equal viewMode 'compact') 'btn-minor' 'btn-nice'}}">
+    Compact view
+  </button>
+  {{#each model as |invSet|}}
+    {{set-inventory model=invSet missingOnly=true missingQuantity=true multiMode=true viewMode=viewMode}}
+  {{/each}}
+</div>

@@ -12,6 +12,11 @@ var Part = DS.Model.extend({
   element_id: DS.attr(),
   element_img_url: DS.attr(),
 
+  dimensions: function() {
+    var matched = (this.get('part_name')||" ").match(/((\d+(\/\d+)? (x|-) )+\d+(\/\d+)?|\d+L|Axle \d+)/g);
+    return matched ? matched[0].replace(/ /g,'').replace(/Axle/g,'') : '';
+  }.property('part_name')
+
 });
 
 export default Part;

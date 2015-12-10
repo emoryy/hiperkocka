@@ -1,0 +1,81 @@
+{{#if multiMode}}
+  <div class="small-header">
+    <div class="description">
+      {{model.setId}}: Missing: {{model.missingTypes}} types, {{model.missingQuantity}} pieces
+      <a {{action "save"}}> Save</a> {{#if isSaving}}{{fa-icon "cog" spin=true}}{{/if}}
+    </div>
+  </div>
+{{else}}
+  <div class="header">
+    <div class="image">
+
+    </div>
+    <div class="description">
+      {{model.setId}}: Missing: {{model.missingTypes}} types, {{model.missingQuantity}} pieces
+    </div>
+    <div class="buttons">
+      <button {{action "save"}} class="btn btn-major inline-block">
+        {{fa-icon 'save'}} Save
+      </button>
+      <button {{action "setViewMode" "normal"}} class="btn inline-block {{if (is-equal viewMode 'normal') 'btn-minor' 'btn-nice'}}">
+        Normal view
+      </button>
+      <button {{action "setViewMode" "compact"}} class="btn inline-block {{if (is-equal viewMode 'compact') 'btn-minor' 'btn-nice'}}">
+        Compact view
+      </button>
+      <button {{action "toggleMissing"}} class="btn btn-highlighted inline-block">
+        {{#if missingOnly}}
+          Show all
+        {{else}}
+          Show only missing
+        {{/if}}
+      </button>
+      <button {{action "toggleQuantity"}} class="btn btn-highlighted inline-block">
+        {{#if missingQuantity}}
+          Display H number
+        {{else}}
+          Display M number
+        {{/if}}
+      </button>
+
+    </div>
+  </div>
+{{/if}}
+
+<div class="parts {{viewMode}}">
+  {{#each parts as |part|}}
+    <div class="part {{if part.hasNoImage 'has-no-image'}} {{part.quantityStatus}}">
+      <div class="description" title="{{part.part.part_id}} - {{part.part.color_name}} {{part.part.part_name}}">
+        {{part.part.type}} {{part.part.part_name}} - {{part.part.part_id}}
+      </div>
+      <img src="{{part.part.part_img_url}}">
+      <div class="color">
+        {{part.part.color_name}}
+      </div>
+      <div class="dimensions">
+        {{part.part.dimensions}}
+      </div>
+      {{#if missingQuantity}}
+        <div class="needed">
+          {{part.needed}}
+        </div>
+      {{else}}
+        <div class="quantity" {{action "activateInput" part}}>
+          {{input
+            type="text"
+            classNames="quantity-input"
+            classNameBindings="part.id"
+            value=part.quantityHave
+          }}
+          /
+          {{part.quantity}}
+        </div>
+      {{/if}}
+      <div class="buttons">
+        <button class="max" {{action "changePartQuantity" part part.quantity}}> {{fa-icon 'chevron-up'}} </button>
+        <button class="minus" {{action "changePartQuantityDelta" part -1}}> {{fa-icon 'minus'}} </button>
+        <button class="plus" {{action "changePartQuantityDelta" part 1}}> {{fa-icon 'plus'}} </button>
+      </div>
+    </div>
+  {{/each}}
+</div>
